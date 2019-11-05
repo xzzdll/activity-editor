@@ -1,2 +1,5 @@
 import React from "react";
-export default const FetchesContext = React.createContext(null);
+
+const FetchesContext = React.createContext(null);
+
+export default FetchesContext;
