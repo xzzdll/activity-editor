@@ -7,7 +7,7 @@ import { Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
-import createHashHistory from "history/createHashHistory";
+import { createHashHistory } from "history";
 import root from "./models/index";
 
 const history = createHashHistory();

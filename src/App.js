@@ -1,18 +1,20 @@
-import React, { useReducer } from "react";
+import React from "react";
 import "./App.css";
-import { fetchReducer } from "./reducers/fetchReducer";
-import Children from "./components/children"
-import FetchesContext from "./provider/FetchesProvider"
+import Activity from "./components/Activity";
+import "react-quill/dist/quill.snow.css";
+import { Route } from "react-router-dom";
 
 export default function App() {
-  const [fetchesState, fetchDispatch] = useReducer(fetchReducer, {
-    isFetching: false,
-    goodsList: []
-  });
-
   return (
-    <FetchesContext.Provider value={{ fetchesState, dispatch: fetchDispatch }}>
-      <Children/>
-    </FetchesContext.Provider>
+    <>
+      <div className="main-app">
+      {/* <Route path="/index" component={Children} /> */}
+      <Route path="/" component={Activity} />
+      {/* <Route path="/artical" component={Children} />
+      <Route path="/detail/:id" component={Children} />
+      <Route path="/say" component={Children} />
+      <Route path="/collect" component={Children} /> */}
+      </div>
+    </>
   );
 }
