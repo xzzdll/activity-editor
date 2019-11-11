@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 .main-app {
   max-width: 1200px;
   margin: auto;

@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { createHashHistory } from "history";
-import root from "./models/index";
+import root from "./model";
 
 const history = createHashHistory();
 

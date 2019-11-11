@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux'
 import * as sagaEffects from 'redux-saga/effects'
 
-const context = require.context('./', false, /\.js$/)
-let modules = context.keys().filter(item => item !== './index.js').map(key => context(key))
+const context = require.context('./models', false, /\.js$/)
+let modules = context.keys().map(key => context(key))
 
 let reducers = {}
 let sagaList = []

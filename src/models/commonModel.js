@@ -6,7 +6,7 @@ function* fetch(action) {
   try {
     const res = yield call(articals, action.payload);
     yield put({
-      type: "articals:set",
+      type: "common:set",
       payload: res
     });
   } catch (err) {
@@ -15,16 +15,16 @@ function* fetch(action) {
 }
 
 export default {
-  name: "articals",
+  name: "common",
   reducer: (state = {}, action) => {
     switch (action.type) {
-      case "articals:set":
+      case "common:set":
         return { ...state, ...action.payload };
       default:
         return state;
     }
   },
   saga: function* listWatcher() {
-    yield takeEvery("articals:fetchList", fetch);
+    yield takeEvery("common:fetchList", fetch);
   }
 };

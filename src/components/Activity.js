@@ -1,73 +1,43 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "./Activity.css";
+// import Button from 'antd/es/button';
+import { Input, Button } from 'antd';
 
 export default function GoodsList() {
-  const [pageTitle, setPageTitle] = useState("");
-  const [pageDescription, setPageDescription] = useState("");
-  const [time, setTime] = useState("");
-  const [aTitle, setATitle] = useState("");
-  const [bTitle, setBTitle] = useState("");
-  const [cTitle, setCTitle] = useState("");
-  const [aContent, setAContent] = useState("");
-  const [bContent, setBContent] = useState("");
-  const [cContent, setCContent] = useState("");
-  const [terms, setTerms] = useState("");
-  const [riskTip, setRiskTip] = useState("");
-
-  // useEffect(() => {
-  //   axios
-  //     .post("http://cool.blog.fanchao.site/api/say/list")
-  //     .then(({ data: { list } }) => {
-  //       setPageTitle(list[4].content);
-  //     });
-  // }, []);
+  const [pageTitle, setPageTitle] = useState("test");
+  const [pageDescription, setPageDescription] = useState("test");
+  const [time, setTime] = useState("test");
+  const [aTitle, setATitle] = useState("test");
+  const [bTitle, setBTitle] = useState("test");
+  const [cTitle, setCTitle] = useState("test");
+  const [aContent, setAContent] = useState("test");
+  const [bContent, setBContent] = useState("test");
+  const [cContent, setCContent] = useState("test");
+  const [terms, setTerms] = useState("test");
+  const [riskTip, setRiskTip] = useState("test");
 
   let download = () => {
     let data = {
-      pageTitle: (
-        <>{pageTitle}</>
-      ),
-      pageDescription: (
-        <>{pageDescription}</>
-      ),
-      time: (
-        <>{time}</>
-      ),
-      description: (
-        <>{pageDescription}</>
-      ),
-      partA: {
-        title: (
-          <>{aTitle}</>
-        ),
-        desc: (
-          <>{aContent}</>
-        )
-      },
-      partB: {
-        title: (
-          <>{bTitle}</>
-        ),
-        desc: (
-          <>{bContent}</>
-        )
-      },
-      partC: {
-        title: (
-          <>{cTitle}</>
-        ),
-        desc: (
-          <>{cContent}</>
-        )
-      },
-      terms: (
-        <>{terms}</>
-      ),
-      riskTip: (
-        <>{riskTip}</>
-      )
+      pageTitle,
+      pageDescription,
+      time,
+      description: pageDescription,
+      parts: [{
+        title: aTitle,
+        desc: aContent,
+        rewards: [],
+      }, {
+        title: bTitle,
+        desc: bContent,
+        rewards: [],
+      }, {
+        title: cTitle,
+        desc: cContent,
+        rewards: [],
+      }],
+      terms,
+      riskTip,
     }
 
     var eleLink = document.createElement('a');
@@ -86,13 +56,12 @@ export default function GoodsList() {
   return (
     <>
       <h3>活动标题</h3>
-      <ReactQuill value={pageTitle} onChange={setPageTitle} />
-
+      <Input size="large" placeholder="活动标题" value={pageTitle} onChange={({ target: { value } }) => setPageTitle(value)} />
       <h3>活动描述</h3>
-      <ReactQuill value={pageDescription} onChange={setPageDescription} />
+      <Input size="large" placeholder="活动标题" value={pageDescription} onChange={({ target: { value } }) => setPageDescription(value)} />
 
       <h3>活动时间</h3>
-      <ReactQuill value={time} onChange={setTime} />
+      <Input size="large" placeholder="活动标题" value={time} onChange={({ target: { value } }) => setTime(value)} />
 
       <h3>活动第一部分</h3>
       <div className="Activity-item">
@@ -119,16 +88,12 @@ export default function GoodsList() {
       </div>
 
       <h3>注意和服务协议</h3>
-      {/* <div className="Activity-item"> */}
       <ReactQuill value={terms} onChange={setTerms} />
-      {/* </div> */}
 
       <h3>风险提示</h3>
-      {/* <div className="Activity-item"> */}
       <ReactQuill value={riskTip} onChange={setRiskTip} />
-      {/* </div> */}
       <div className="Activity-item" style={{ border: "unset" }}>
-        <button onClick={download}>下载json</button>
+        <Button onClick={download}>下载json</Button>
       </div>
     </>
   );
