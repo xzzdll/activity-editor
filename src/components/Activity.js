@@ -3,8 +3,9 @@ import ReactQuill from "react-quill";
 import "./Activity.css";
 // import Button from 'antd/es/button';
 import { Input, Button } from 'antd';
+import { useDispatch } from 'react-redux'
 
-export default function GoodsList() {
+export default function Activity({locale}) {
   const [pageTitle, setPageTitle] = useState("test");
   const [pageDescription, setPageDescription] = useState("test");
   const [time, setTime] = useState("test");
@@ -16,41 +17,10 @@ export default function GoodsList() {
   const [cContent, setCContent] = useState("test");
   const [terms, setTerms] = useState("test");
   const [riskTip, setRiskTip] = useState("test");
+  const dispatch = useDispatch()
 
   let download = () => {
-    let data = {
-      pageTitle,
-      pageDescription,
-      time,
-      description: pageDescription,
-      parts: [{
-        title: aTitle,
-        desc: aContent,
-        rewards: [],
-      }, {
-        title: bTitle,
-        desc: bContent,
-        rewards: [],
-      }, {
-        title: cTitle,
-        desc: cContent,
-        rewards: [],
-      }],
-      terms,
-      riskTip,
-    }
-
-    var eleLink = document.createElement('a');
-    eleLink.download = 'activity.json';
-    eleLink.style.display = 'none';
-    // 字符内容转变成blob地址
-    var blob = new Blob([JSON.stringify(data)]);
-    eleLink.href = URL.createObjectURL(blob);
-    // 触发点击
-    document.body.appendChild(eleLink);
-    eleLink.click();
-    // 然后移除
-    document.body.removeChild(eleLink);
+    dispatch({ type: locale === 'cn' ? 'chinese:set' : 'english:set', payload: { pageTitle, pageDescription, time, parts: [{ aTitle, aContent }, { bTitle, bContent }, { cTitle, cContent}],terms,riskTip}})
   }
 
   return (
@@ -92,8 +62,9 @@ export default function GoodsList() {
 
       <h3>风险提示</h3>
       <ReactQuill value={riskTip} onChange={setRiskTip} />
+
       <div className="Activity-item" style={{ border: "unset" }}>
-        <Button onClick={download}>下载json</Button>
+        <Button onClick={download}>保存</Button>
       </div>
     </>
   );
