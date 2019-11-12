@@ -8,21 +8,16 @@ import { useSelector } from 'react-redux'
 const { TabPane } = Tabs;
 
 export default function Index() {
-  // const [data, setData] = useState("test");
-
   const {common,chinese,english} = useSelector(state => state);
 
   let download = () => {
     var eleLink = document.createElement('a');
     eleLink.download = 'activity.json';
     eleLink.style.display = 'none';
-    // 字符内容转变成blob地址
     var blob = new Blob([JSON.stringify({...common,cn:chinese,en:english})]);
     eleLink.href = URL.createObjectURL(blob);
-    // 触发点击
     document.body.appendChild(eleLink);
     eleLink.click();
-    // 然后移除
     document.body.removeChild(eleLink);
   }
 
