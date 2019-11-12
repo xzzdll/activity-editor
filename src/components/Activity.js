@@ -1,30 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "./Activity.css";
-import { Input, Button, Switch } from 'antd';
+import { Input, Switch } from 'antd';
 import { useDispatch } from 'react-redux'
 
 const rewardsEn = [
-  {
-    orderNo: '1',
-    title: '1st Place',
-    desc: '',
-  },
-  {
-    orderNo: '2',
-    title: '2nd Place',
-    desc: '',
-  },
-  {
-    orderNo: '3',
-    title: '3rd Place',
-    desc: '',
-  },
-  {
-    orderNo: '4',
-    title: '4th-10th Place',
-    desc: '',
-  },
+  { orderNo: '1', title: '1st Place', desc: '', },
+  { orderNo: '2', title: '2nd Place', desc: '', },
+  { orderNo: '3', title: '3rd Place', desc: '', },
+  { orderNo: '4', title: '4th-10th Place', desc: '', },
 ]
 
 const rewardsCn = [
@@ -66,16 +50,16 @@ export default function Activity({ locale }) {
   });
   const dispatch = useDispatch()
 
-  let download = () => {
+  useEffect(() => {
     dispatch({ type: locale === 'cn' ? 'chinese:set' : 'english:set', payload: data })
-  }
+  },[data, dispatch, locale])
 
   let setArray = (arr, index, val, key) => {
     arr[index][key] = val
     return { parts: arr }
   }
 
-  let setArray1 = (arr, index,index1, val) => {
+  let setArray1 = (arr, index, index1, val) => {
     arr[index]['rewards'][index1]['desc'] = val
     return { parts: arr }
   }
@@ -106,7 +90,7 @@ export default function Activity({ locale }) {
             {part.isRewards && part.rewards.map((reward, index1) => {
               return <div key={index1 + index}>
                 <h4>奖励{index1 + 1}</h4>
-                <Input size="large" placeholder="活动标题" value={reward.desc} onChange={({ target: { value } }) => setData({ ...data, ...setArray1(data.parts, index,index1, value) })} />
+                <Input size="large" placeholder="活动标题" value={reward.desc} onChange={({ target: { value } }) => setData({ ...data, ...setArray1(data.parts, index, index1, value) })} />
               </div>
             })}
           </div>
@@ -119,10 +103,6 @@ export default function Activity({ locale }) {
 
       <h3>风险提示</h3>
       <ReactQuill value={data.riskTip} onChange={val => setData({ ...data, ...{ riskTip: val } })} />
-
-      <div className="Activity-item" style={{ border: "unset" }}>
-        <Button onClick={download}>保存</Button>
-      </div>
     </>
   );
 }
