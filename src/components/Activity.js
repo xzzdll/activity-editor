@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "./Activity.css";
-// import Button from 'antd/es/button';
 import { Input, Button } from 'antd';
 import { useDispatch } from 'react-redux'
 
-export default function Activity({locale}) {
+export default function Activity({ locale }) {
   const [pageTitle, setPageTitle] = useState("test");
   const [pageDescription, setPageDescription] = useState("test");
   const [time, setTime] = useState("test");
@@ -20,7 +19,7 @@ export default function Activity({locale}) {
   const dispatch = useDispatch()
 
   let download = () => {
-    dispatch({ type: locale === 'cn' ? 'chinese:set' : 'english:set', payload: { pageTitle, pageDescription, time, parts: [{ aTitle, aContent }, { bTitle, bContent }, { cTitle, cContent}],terms,riskTip}})
+    dispatch({ type: locale === 'cn' ? 'chinese:set' : 'english:set', payload: { pageTitle, pageDescription, time, parts: [{ title: aTitle, desc: aContent }, { title: bTitle, desc: bContent }, { title: cTitle, desc: cContent }], terms, riskTip } })
   }
 
   return (
