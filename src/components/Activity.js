@@ -5,62 +5,66 @@ import { Input, Button } from 'antd';
 import { useDispatch } from 'react-redux'
 
 export default function Activity({ locale }) {
-  const [pageTitle, setPageTitle] = useState("test");
-  const [pageDescription, setPageDescription] = useState("test");
-  const [time, setTime] = useState("test");
-  const [aTitle, setATitle] = useState("test");
-  const [bTitle, setBTitle] = useState("test");
-  const [cTitle, setCTitle] = useState("test");
-  const [aContent, setAContent] = useState("test");
-  const [bContent, setBContent] = useState("test");
-  const [cContent, setCContent] = useState("test");
-  const [terms, setTerms] = useState("test");
-  const [riskTip, setRiskTip] = useState("test");
+  const [data, setData] = useState({
+    pageTitle: "test",
+    pageDescription: "test",
+    time: "test",
+    parts: [
+      {
+        title: "<p>test</p>",
+        desc: "<p>test</p>"
+      },
+      {
+        title: "<p>test</p>",
+        desc: "<p>test</p>"
+      },
+      {
+        title: "<p>test</p>",
+        desc: "<p>test</p>"
+      }
+    ],
+    terms: "<p>test</p>",
+    riskTip: "<p>test</p>"
+  });
   const dispatch = useDispatch()
 
   let download = () => {
-    dispatch({ type: locale === 'cn' ? 'chinese:set' : 'english:set', payload: { pageTitle, pageDescription, time, parts: [{ title: aTitle, desc: aContent }, { title: bTitle, desc: bContent }, { title: cTitle, desc: cContent }], terms, riskTip } })
+    dispatch({ type: locale === 'cn' ? 'chinese:set' : 'english:set', payload: data })
+  }
+
+  let setArray = (arr,index,val,key) => {
+    arr[index][key] = val
+    return { parts: arr }
   }
 
   return (
     <>
       <h3>活动标题</h3>
-      <Input size="large" placeholder="活动标题" value={pageTitle} onChange={({ target: { value } }) => setPageTitle(value)} />
+      <Input size="large" placeholder="活动标题" value={data.pageTitle} onChange={({ target: { value } }) => setData({ ...data, ...{ pageTitle:value}})} />
       <h3>活动描述</h3>
-      <Input size="large" placeholder="活动标题" value={pageDescription} onChange={({ target: { value } }) => setPageDescription(value)} />
+      <Input size="large" placeholder="活动标题" value={data.pageDescription} onChange={({ target: { value } }) => setData({ ...data, ...{ pageDescription: value } })} />
 
       <h3>活动时间</h3>
-      <Input size="large" placeholder="活动标题" value={time} onChange={({ target: { value } }) => setTime(value)} />
+      <Input size="large" placeholder="活动标题" value={data.time} onChange={({ target: { value } }) => setData({ ...data, ...{ time: value } })} />
 
-      <h3>活动第一部分</h3>
-      <div className="Activity-item">
-        <h4>标题</h4>
-        <ReactQuill value={aTitle} onChange={setATitle} />
-        <h4>内容</h4>
-        <ReactQuill value={aContent} onChange={setAContent} />
-      </div>
-
-      <h3>活动第二部分</h3>
-      <div className="Activity-item">
-        <h4>标题</h4>
-        <ReactQuill value={bTitle} onChange={setBTitle} />
-        <h4>内容</h4>
-        <ReactQuill value={bContent} onChange={setBContent} />
-      </div>
-
-      <h3>活动第三部分</h3>
-      <div className="Activity-item">
-        <h4>标题</h4>
-        <ReactQuill value={cTitle} onChange={setCTitle} />
-        <h4>内容</h4>
-        <ReactQuill value={cContent} onChange={setCContent} />
-      </div>
+      {data.parts.map((part, index) => {
+        return <div key={index}>
+        <h3>活动第{index+1}部分</h3>
+          <div className="Activity-item">
+            <h4>标题</h4>
+            <ReactQuill value={part.title} onChange={val => setData({ ...data, ...setArray(data.parts,index,val,'title')})} />
+            <h4>内容</h4>
+            <ReactQuill value={part.desc} onChange={val => setData({ ...data, ...setArray(data.parts, index, val, 'desc') })} />
+          </div>
+        </div>
+      })
+      }
 
       <h3>注意和服务协议</h3>
-      <ReactQuill value={terms} onChange={setTerms} />
+      <ReactQuill value={data.terms} onChange={val => setData({ ...data, ...{ terms: val } })} />
 
       <h3>风险提示</h3>
-      <ReactQuill value={riskTip} onChange={setRiskTip} />
+      <ReactQuill value={data.riskTip} onChange={val => setData({ ...data, ...{ riskTip: val } })} />
 
       <div className="Activity-item" style={{ border: "unset" }}>
         <Button onClick={download}>保存</Button>
