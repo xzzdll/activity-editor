@@ -1,10 +1,42 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "./Activity.css";
-import { Input, Button } from 'antd';
+import { Input, Button, Switch } from 'antd';
 import { useDispatch } from 'react-redux'
 
+const rewardsEn = [
+  {
+    orderNo: '1',
+    title: '1st Place',
+    desc: '',
+  },
+  {
+    orderNo: '2',
+    title: '2nd Place',
+    desc: '',
+  },
+  {
+    orderNo: '3',
+    title: '3rd Place',
+    desc: '',
+  },
+  {
+    orderNo: '4',
+    title: '4th-10th Place',
+    desc: '',
+  },
+]
+
+const rewardsCn = [
+  { orderNo: '1', title: '第1名', desc: '' },
+  { orderNo: '2', title: '第2名', desc: '' },
+  { orderNo: '3', title: '第3名', desc: '' },
+  { orderNo: '4', title: '第4-10名', desc: '' },
+]
+
+
 export default function Activity({ locale }) {
+
   const [data, setData] = useState({
     pageTitle: "test",
     pageDescription: "test",
@@ -12,15 +44,21 @@ export default function Activity({ locale }) {
     parts: [
       {
         title: "<p>test</p>",
-        desc: "<p>test</p>"
+        desc: "<p>test</p>",
+        rewards: locale === 'cn' ? JSON.parse(JSON.stringify(rewardsCn)) : JSON.parse(JSON.stringify(rewardsEn)),
+        isRewards: false
       },
       {
         title: "<p>test</p>",
-        desc: "<p>test</p>"
+        desc: "<p>test</p>",
+        rewards: locale === 'cn' ? JSON.parse(JSON.stringify(rewardsCn)) : JSON.parse(JSON.stringify(rewardsEn)),
+        isRewards: false
       },
       {
         title: "<p>test</p>",
-        desc: "<p>test</p>"
+        desc: "<p>test</p>",
+        rewards: locale === 'cn' ? JSON.parse(JSON.stringify(rewardsCn)) : JSON.parse(JSON.stringify(rewardsEn)),
+        isRewards: false
       }
     ],
     terms: "<p>test</p>",
@@ -32,15 +70,20 @@ export default function Activity({ locale }) {
     dispatch({ type: locale === 'cn' ? 'chinese:set' : 'english:set', payload: data })
   }
 
-  let setArray = (arr,index,val,key) => {
+  let setArray = (arr, index, val, key) => {
     arr[index][key] = val
+    return { parts: arr }
+  }
+
+  let setArray1 = (arr, index,index1, val) => {
+    arr[index]['rewards'][index1]['desc'] = val
     return { parts: arr }
   }
 
   return (
     <>
       <h3>活动标题</h3>
-      <Input size="large" placeholder="活动标题" value={data.pageTitle} onChange={({ target: { value } }) => setData({ ...data, ...{ pageTitle:value}})} />
+      <Input size="large" placeholder="活动标题" value={data.pageTitle} onChange={({ target: { value } }) => setData({ ...data, ...{ pageTitle: value } })} />
       <h3>活动描述</h3>
       <Input size="large" placeholder="活动标题" value={data.pageDescription} onChange={({ target: { value } }) => setData({ ...data, ...{ pageDescription: value } })} />
 
@@ -49,12 +92,23 @@ export default function Activity({ locale }) {
 
       {data.parts.map((part, index) => {
         return <div key={index}>
-        <h3>活动第{index+1}部分</h3>
+          <h3>活动第{index + 1}部分</h3>
           <div className="Activity-item">
             <h4>标题</h4>
-            <ReactQuill value={part.title} onChange={val => setData({ ...data, ...setArray(data.parts,index,val,'title')})} />
+            <ReactQuill value={part.title} onChange={val => setData({ ...data, ...setArray(data.parts, index, val, 'title') })} />
+
             <h4>内容</h4>
             <ReactQuill value={part.desc} onChange={val => setData({ ...data, ...setArray(data.parts, index, val, 'desc') })} />
+
+            <h3>是否显示奖励组件</h3>
+            <Switch checked={part.isRewards} onChange={(checked) => setData({ ...data, ...setArray(data.parts, index, checked, 'isRewards') })} />
+
+            {part.isRewards && part.rewards.map((reward, index1) => {
+              return <div key={index1 + index}>
+                <h4>奖励{index1 + 1}</h4>
+                <Input size="large" placeholder="活动标题" value={reward.desc} onChange={({ target: { value } }) => setData({ ...data, ...setArray1(data.parts, index,index1, value) })} />
+              </div>
+            })}
           </div>
         </div>
       })
