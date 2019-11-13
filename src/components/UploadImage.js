@@ -19,15 +19,15 @@ export default function UploadImage({change}) {
     name: 'file',
     listType: "picture-card",
     // className:"avatar-uploader",
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    action: 'http://127.0.0.1:3000/image/upload',
     onChange(info) {
       const { file:{status}, fileList } = info;
       if (status === 'done') {
+        change(info.file.response.url)
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
-      change(info.file.name)
       setIsShowUploadBtn(!fileList.length)
     },
   };
