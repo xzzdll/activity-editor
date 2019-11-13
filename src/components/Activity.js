@@ -26,6 +26,8 @@ export default function Activity({ locale }) {
     pageTitle: "test",
     pageDescription: "test",
     time: "test",
+    landingImage: "",
+    appImage: "",
     parts: [
       {
         title: "<p>test</p>",
@@ -77,12 +79,12 @@ export default function Activity({ locale }) {
       <Input size="large" placeholder="活动标题" value={data.time} onChange={({ target: { value } }) => setData({ ...data, ...{ time: value } })} />
       <div style={{ display: 'flex' }}>
         <div style={{ margin: '20px' }}>
-          <h3>Banner landing Image</h3>
-            <UploadImage></UploadImage>
+          <h3>Banner Landing Image</h3>
+          <UploadImage change={(value) => setData({ ...data, ...{ landingImage: value } })}></UploadImage>
         </div>
         <div style={{ margin: '20px' }}>
           <h3>Banner App Image</h3>
-            <UploadImage></UploadImage>
+          <UploadImage change={(value) => setData({ ...data, ...{ appImage: value } })}></UploadImage>
         </div>
       </div>
 

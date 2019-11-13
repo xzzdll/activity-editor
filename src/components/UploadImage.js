@@ -11,7 +11,7 @@ const UploadButton = () =>(
   </div>
 );
 
-export default function UploadImage(props) {
+export default function UploadImage({change}) {
   const [imageUrl] = useState('')
   const [isShowUploadBtn, setIsShowUploadBtn] = useState(true)
 
@@ -27,6 +27,7 @@ export default function UploadImage(props) {
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
+      change(info.file.name)
       setIsShowUploadBtn(!fileList.length)
     },
   };
