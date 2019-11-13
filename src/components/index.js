@@ -24,7 +24,7 @@ export default function Index() {
   return (
     <>
       <h1>市场部活动配置编辑器</h1>
-      <Tabs defaultActiveKey="1">
+      <Tabs defaultActiveKey="2">
         <TabPane tab="通用配置" key="1">
           <CommonTab></CommonTab>
         </TabPane>
