@@ -2,10 +2,10 @@ import axios from 'axios';
 import qs from 'qs';
 
 // axios 配置
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 // axios.defaults.baseURL = 'http://127.0.0.1:3000/';
-axios.defaults.baseURL = "api/";
+axios.defaults.baseURL = "http://127.0.0.1:3000";
 axios.defaults.withCredentials = true;
 
 // POST传参序列化，请求拦截器
@@ -31,6 +31,7 @@ export default function fetch (url, params) {
   return new Promise((resolve, reject) => {
     axios.post(url, params)
       .then(response => {
+        debugger
         resolve(response.data);
       }, err => {
         reject(err);
@@ -50,5 +51,9 @@ export function articals(data){
 
 export function getVisitorMount(data){
   return fetch('count/visitor',data);
+}
+
+export function addNewActivity(data) {
+  return fetch('/activity/set', data);
 }
 

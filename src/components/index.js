@@ -4,6 +4,8 @@ import Activity from "./Activity"
 import CommonTab from "./CommonTab"
 import { Tabs, Button } from 'antd';
 import { useSelector } from 'react-redux'
+import { addNewActivity, says } from '../service/api'
+import axios from 'axios'
 
 const { TabPane } = Tabs;
 
@@ -21,10 +23,14 @@ export default function Index() {
     document.body.removeChild(eleLink);
   }
 
+  let upload = () => {
+    axios.post('http://localhost:3000//activity/set')
+  }
+
   return (
     <>
       <h1>市场部活动配置编辑器</h1>
-      <Tabs defaultActiveKey="2">
+      <Tabs defaultActiveKey="1">
         <TabPane tab="通用配置" key="1">
           <CommonTab></CommonTab>
         </TabPane>
@@ -37,6 +43,7 @@ export default function Index() {
       </Tabs>
       <div className="Activity-item" style={{ border: "unset" }}>
         <Button onClick={download}>下载json</Button>
+        <Button style={{marginLeft:'20px'}} onClick={upload}>上传json</Button>
       </div>
     </>
   );
