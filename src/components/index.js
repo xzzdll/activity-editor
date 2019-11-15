@@ -24,12 +24,12 @@ export default function Index() {
   }
 
   let upload = () => {
-    axios.post('http://localhost:3000//activity/set')
+    axios.post('http://localhost:8899/activity/set', { id: common.id, activity_json: JSON.stringify({ ...common, cn: chinese, en: english })})
   }
 
   return (
     <>
-      <h1>市场部活动配置编辑器</h1>
+      {/* <h1>市场部活动配置编辑器</h1> */}
       <Tabs defaultActiveKey="1">
         <TabPane tab="通用配置" key="1">
           <CommonTab></CommonTab>
