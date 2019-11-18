@@ -19,7 +19,7 @@ export default function UploadImage({change}) {
     name: 'file',
     listType: "picture-card",
     // className:"avatar-uploader",
-    action: 'http://127.0.0.1:3000/image/upload',
+    action: 'http://47.98.115.136:8899/image/upload',
     onChange(info) {
       const { file:{status}, fileList } = info;
       if (status === 'done') {

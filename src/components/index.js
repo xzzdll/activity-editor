@@ -4,7 +4,7 @@ import Activity from "./Activity"
 import CommonTab from "./CommonTab"
 import { Tabs, Button } from 'antd';
 import { useSelector } from 'react-redux'
-import { addNewActivity, says } from '../service/api'
+import { addNewActivity } from '../service/api'
 import axios from 'axios'
 
 const { TabPane } = Tabs;
@@ -24,7 +24,7 @@ export default function Index() {
   }
 
   let upload = () => {
-    axios.post('http://localhost:8899/activity/set', { id: common.id, activity_json: JSON.stringify({ ...common, cn: chinese, en: english })})
+    addNewActivity({ id: common.id, activity_json: JSON.stringify({ ...common, cn: chinese, en: english })})
   }
 
   return (
