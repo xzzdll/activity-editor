@@ -31,7 +31,6 @@ export default function fetch (url, params) {
   return new Promise((resolve, reject) => {
     axios.post(url, params)
       .then(response => {
-        debugger
         resolve(response.data);
       }, err => {
         reject(err);
@@ -55,5 +54,9 @@ export function getVisitorMount(data){
 
 export function addNewActivity(data) {
   return fetch('activity/set', data);
+}
+
+export function getAllActivity() {
+  return axios.get('activity/getAll');
 }
 

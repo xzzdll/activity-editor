@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Activity.css";
 import Activity from "./Activity"
 import CommonTab from "./CommonTab"
-import { Tabs, Button } from 'antd';
+import { Tabs, Button,Table } from 'antd';
 import { useSelector } from 'react-redux'
-import { addNewActivity } from '../service/api'
-import axios from 'axios'
+import { addNewActivity,getAllActivity } from '../service/api'
 
 const { TabPane } = Tabs;
 
 export default function Index() {
-  const {common,chinese,english} = useSelector(state => state);
+  const { common, chinese, english } = useSelector(state => state);
+  const [dataSource,setDataSource] = useState([])
 
   let download = () => {
     var eleLink = document.createElement('a');
@@ -24,12 +24,53 @@ export default function Index() {
   }
 
   let upload = () => {
-    addNewActivity({ id: common.id, activity_json: JSON.stringify({ ...common, cn: chinese, en: english })})
+    addNewActivity({ id: common.id, activity_json: JSON.stringify({ ...common, cn: chinese, en: english }) }).then(res => {
+      getActivityData();
+    })
   }
+
+  let getActivityData = () => {
+    getAllActivity().then(res => {
+      setDataSource(res.data.activity)
+    })
+  }
+
+  useEffect(() => {
+    getActivityData()
+  },[])
+
+const columns = [
+  {
+    title: '活动ID',
+    dataIndex: 'activity_id',
+    key: 'activity_id',
+  },
+    {
+    title: '币种',
+    dataIndex: 'activity_json',
+    key: 'activity_id',
+    render: (activity_json) => (
+      <span>{ JSON.parse(activity_json).name }</span>
+    )
+  },
+  {
+    title: '交易对',
+    dataIndex: 'activity_json',
+    key: 'activity_id',
+    render: (activity_json) => (
+      <span>{ JSON.parse(activity_json).symbol }</span>
+    )
+  },
+  // {
+  //   title: '住址',
+  //   dataIndex: 'address',
+  //   key: 'address',
+  // },
+];
 
   return (
     <>
-      {/* <h1>市场部活动配置编辑器</h1> */}
+      <h1>活动编辑器</h1>
       <Tabs defaultActiveKey="1">
         <TabPane tab="通用配置" key="1">
           <CommonTab></CommonTab>
@@ -45,6 +86,8 @@ export default function Index() {
         <Button onClick={download}>下载json</Button>
         <Button style={{marginLeft:'20px'}} onClick={upload}>上传json</Button>
       </div>
+
+      <Table dataSource={dataSource} columns={columns} />;
     </>
   );
 }
