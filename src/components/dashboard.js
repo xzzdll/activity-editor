@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Activity.css";
-import { Table, Button } from 'antd';
+import { Table, Button, Divider } from 'antd';
 import { getAllActivity } from '../service/api'
 import { useHistory } from "react-router-dom";
 
@@ -39,6 +39,17 @@ export default function Index() {
       render: (activity_json) => (
         <span>{JSON.parse(activity_json).symbol}</span>
       )
+    },
+    {
+      title: '操作',
+      key: 'action',
+      render: () => (
+        <span>
+          <Button onClick={() => { }}>编辑</Button>
+          <Divider type="vertical" />
+          <Button onClick={() => { }}>删除</Button>
+        </span>
+      ),
     },
   ];
 
