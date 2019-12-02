@@ -60,3 +60,7 @@ export function getAllActivity() {
   return axios.get('activity/getAll');
 }
 
+export function getActivityById(data) {
+  return axios.get(`activity/get${data}`);
+}
+

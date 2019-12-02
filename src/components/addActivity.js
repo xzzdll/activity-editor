@@ -1,24 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Activity.css";
 import Activity from "./Activity"
 import CommonTab from "./CommonTab"
 import { Tabs, Button, message } from 'antd';
-import { useSelector } from 'react-redux'
-import { addNewActivity } from '../service/api'
-import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import { addNewActivity, getActivityById } from '../service/api'
+import { useHistory, useLocation } from "react-router-dom";
 
 const { TabPane } = Tabs;
 
 export default function Index() {
   const { common, chinese, english } = useSelector(state => state);
+  const dispatch = useDispatch()
 
   const history = useHistory()
+
+  const { search: id } = useLocation()
+  
+  // useEffect(() => {
+
+  // },[dispatch])
+
+  useEffect(() => {
+    dispatch({ type: 'chinese:clear'})
+    dispatch({ type: 'english:clear'})
+    dispatch({ type: 'common:clear'})
+    if (id) {
+      getActivityById(id).then(({data:{activity}}
+      ) => {
+        console.log(activity)
+        let activityJson = JSON.parse(activity.activity_json)
+        dispatch({ type: 'chinese:set', payload: activityJson.cn })
+        dispatch({ type: 'english:set', payload: activityJson.en })
+        dispatch({ type: 'common:setId', payload: activityJson.id })
+        dispatch({ type: 'common:setName', payload: activityJson.name })
+        dispatch({ type: 'common:setSymbol', payload: activityJson.symbol })
+        dispatch({ type: 'common:setIsTradingRank', payload: activityJson.isTradingRank })
+      })
+    }
+  }, [id, dispatch])
 
   let download = () => {
     var eleLink = document.createElement('a');
     eleLink.download = 'activity.json';
     eleLink.style.display = 'none';
-    var blob = new Blob([JSON.stringify({...common,cn:chinese,en:english})]);
+    var blob = new Blob([JSON.stringify({ ...common, cn: chinese, en: english })]);
     eleLink.href = URL.createObjectURL(blob);
     document.body.appendChild(eleLink);
     eleLink.click();
@@ -51,8 +77,8 @@ export default function Index() {
         </TabPane>
       </Tabs>
       <div className="Activity-item" style={{ border: "unset" }}>
-        {/* <Button onClick={download}>下载json</Button> */}
-        <Button style={{marginLeft:'20px'}} onClick={upload}>上传并下载json</Button>
+        <Button onClick={() => history.push('/dashboard')}>返回</Button>
+        <Button style={{ marginLeft: '20px' }} onClick={upload}>上传并下载json</Button>
       </div>
     </>
   );

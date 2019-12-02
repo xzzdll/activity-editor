@@ -11,8 +11,8 @@ const UploadButton = () =>(
   </div>
 );
 
-export default function UploadImage({change}) {
-  const [imageUrl] = useState('')
+export default function UploadImage({change,value}) {
+  const [imageUrl] = useState(value)
   const [isShowUploadBtn, setIsShowUploadBtn] = useState(true)
 
   const uploadProps = {

@@ -33,6 +33,8 @@ export default {
         return { ...state, ...{ isTradingRank: action.payload } };
       case "common:setId":
         return { ...state, ...{ id: action.payload } };
+      case "common:clear":
+        return initialState
       default:
         return state;
     }

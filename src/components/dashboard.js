@@ -10,7 +10,11 @@ export default function Index() {
 
   let getActivityData = () => {
     getAllActivity().then(res => {
-      setDataSource(res.data.activity)
+      let data = res.data.activity.map((x,index) => {
+        x.key = index
+        return x;
+      })
+      setDataSource(data)
     })
   }
 
@@ -18,16 +22,20 @@ export default function Index() {
     getActivityData()
   }, [])
 
+  const edit = (id) => {
+    history.push(`/addActivity?id=${id}`)
+  }
+
   const columns = [
     {
       title: '活动ID',
       dataIndex: 'activity_id',
-      key: 'activity_id',
+      key: `活动ID`,
     },
     {
       title: '币种',
       dataIndex: 'activity_json',
-      key: 'activity_id',
+      key: '币种',
       render: (activity_json) => (
         <span>{JSON.parse(activity_json).name}</span>
       )
@@ -35,7 +43,7 @@ export default function Index() {
     {
       title: '交易对',
       dataIndex: 'activity_json',
-      key: 'activity_id',
+      key: '交易对',
       render: (activity_json) => (
         <span>{JSON.parse(activity_json).symbol}</span>
       )
@@ -43,9 +51,10 @@ export default function Index() {
     {
       title: '操作',
       key: 'action',
-      render: () => (
+      dataIndex: 'activity_id',
+      render: (activity_id) => (
         <span>
-          <Button onClick={() => { }}>编辑</Button>
+          <Button onClick={() => { edit(activity_id) }}>编辑</Button>
           <Divider type="vertical" />
           <Button onClick={() => { }}>删除</Button>
         </span>
@@ -55,7 +64,7 @@ export default function Index() {
 
   return (
     <>
-      <h1>活动编辑器</h1>
+      <h1>活动编辑器2.0</h1>
       <Button onClick={() => history.push('/addActivity')}>添加新活动</Button>
 
       <Table dataSource={dataSource} columns={columns} />;

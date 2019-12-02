@@ -2,55 +2,13 @@ import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "./Activity.css";
 import { Input, Switch } from 'antd';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import UploadImage from './UploadImage'
-
-const rewardsEn = [
-  { orderNo: '1', title: '1st Place', desc: '', },
-  { orderNo: '2', title: '2nd Place', desc: '', },
-  { orderNo: '3', title: '3rd Place', desc: '', },
-  { orderNo: '4', title: '4th-10th Place', desc: '', },
-]
-
-const rewardsCn = [
-  { orderNo: '1', title: '第1名', desc: '' },
-  { orderNo: '2', title: '第2名', desc: '' },
-  { orderNo: '3', title: '第3名', desc: '' },
-  { orderNo: '4', title: '第4-10名', desc: '' },
-]
 
 
 export default function Activity({ locale }) {
-
-  const [data, setData] = useState({
-    pageTitle: "test",
-    pageDescription: "test",
-    time: "test",
-    landingImage: "",
-    appImage: "",
-    parts: [
-      {
-        title: "<p>test</p>",
-        desc: "<p>test</p>",
-        rewards: locale === 'cn' ? JSON.parse(JSON.stringify(rewardsCn)) : JSON.parse(JSON.stringify(rewardsEn)),
-        isRewards: false
-      },
-      {
-        title: "<p>test</p>",
-        desc: "<p>test</p>",
-        rewards: locale === 'cn' ? JSON.parse(JSON.stringify(rewardsCn)) : JSON.parse(JSON.stringify(rewardsEn)),
-        isRewards: false
-      },
-      {
-        title: "<p>test</p>",
-        desc: "<p>test</p>",
-        rewards: locale === 'cn' ? JSON.parse(JSON.stringify(rewardsCn)) : JSON.parse(JSON.stringify(rewardsEn)),
-        isRewards: false
-      }
-    ],
-    terms: "<p>test</p>",
-    riskTip: "<p>test</p>"
-  });
+  const { chinese, english } = useSelector(state => state);
+  const [data, setData] = useState(locale === 'cn' ? chinese : english);
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -66,6 +24,7 @@ export default function Activity({ locale }) {
     arr[index]['rewards'][index1]['desc'] = val
     return { parts: arr }
   }
+  debugger
 
   return (
     <>
@@ -80,11 +39,11 @@ export default function Activity({ locale }) {
       <div style={{ display: 'flex' }}>
         <div style={{ margin: '20px' }}>
           <h3>Banner Landing Image</h3>
-          <UploadImage change={(value) => setData({ ...data, ...{ landingImage: value } })}></UploadImage>
+          <UploadImage value={data.landingImage} change={(value) => setData({ ...data, ...{ landingImage: value } })}></UploadImage>
         </div>
         <div style={{ margin: '20px' }}>
           <h3>Banner App Image</h3>
-          <UploadImage change={(value) => setData({ ...data, ...{ appImage: value } })}></UploadImage>
+          <UploadImage value={data.appImage} change={(value) => setData({ ...data, ...{ appImage: value } })}></UploadImage>
         </div>
       </div>
 
