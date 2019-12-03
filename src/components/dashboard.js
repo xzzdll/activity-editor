@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Activity.css";
-import { Table, Button, Divider } from 'antd';
-import { getAllActivity } from '../service/api'
+import { Table, Button, Divider, message } from 'antd';
+import { getAllActivity, deleteActivityById } from '../service/api'
 import { useHistory } from "react-router-dom";
 
 export default function Index() {
@@ -10,7 +10,7 @@ export default function Index() {
 
   let getActivityData = () => {
     getAllActivity().then(res => {
-      let data = res.data.activity.map((x,index) => {
+      let data = res.data.activity.map((x, index) => {
         x.key = index
         return x;
       })
@@ -24,6 +24,15 @@ export default function Index() {
 
   const edit = (id) => {
     history.push(`/addActivity?id=${id}`)
+  }
+
+  const deleteActivity = (id) => {
+    deleteActivityById({id}).then(({ status }) => {
+      if (status) {
+        message.info('删除成功');
+        getActivityData()
+      }
+    })
   }
 
   const columns = [
@@ -56,7 +65,7 @@ export default function Index() {
         <span>
           <Button onClick={() => { edit(activity_id) }}>编辑</Button>
           <Divider type="vertical" />
-          <Button onClick={() => { }}>删除</Button>
+          <Button onClick={() => { deleteActivity(activity_id) }}>删除</Button>
         </span>
       ),
     },
@@ -65,8 +74,9 @@ export default function Index() {
   return (
     <>
       <h1>活动编辑器2.0</h1>
-      <Button onClick={() => history.push('/addActivity')}>添加新活动</Button>
+      <Button style={{ marginBottom: '30px' }} onClick={() => history.push('/addActivity')}>添加新活动</Button>
 
+      <h3>线上活动</h3>
       <Table dataSource={dataSource} columns={columns} />;
     </>
   );

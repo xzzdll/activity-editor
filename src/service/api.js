@@ -64,3 +64,7 @@ export function getActivityById(data) {
   return axios.get(`activity/get${data}`);
 }
 
+export function deleteActivityById(data) {
+  return fetch(`activity/delete`,data);
+}
+
