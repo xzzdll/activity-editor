@@ -63,9 +63,9 @@ export default function Index() {
       dataIndex: 'activity_id',
       render: (activity_id) => (
         <span>
-          <Button onClick={() => { edit(activity_id) }}>编辑</Button>
+          <Button type="primary" onClick={() => { edit(activity_id) }}>编辑</Button>
           <Divider type="vertical" />
-          <Button onClick={() => { deleteActivity(activity_id) }}>删除</Button>
+          <Button type="danger" onClick={() => { deleteActivity(activity_id) }}>删除</Button>
         </span>
       ),
     },
@@ -74,7 +74,7 @@ export default function Index() {
   return (
     <>
       <h1>活动编辑器2.0</h1>
-      <Button style={{ marginBottom: '30px' }} onClick={() => history.push('/addActivity')}>添加新活动</Button>
+      <Button type="primary" style={{ marginBottom: '30px' }} onClick={() => history.push('/addActivity')}>添加新活动</Button>
 
       <h3>线上活动</h3>
       <Table dataSource={dataSource} columns={columns} />;

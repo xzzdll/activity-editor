@@ -4,3 +4,7 @@
   padding: 15px;
   border: 1px solid #ddd;
 }
+
+h3,h4 {
+  margin-top:0.5em;
+}

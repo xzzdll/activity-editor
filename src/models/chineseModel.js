@@ -9,7 +9,7 @@ const rewardsCn = [
 ]
 
 const parts = [];
-for (let i = 1; i < 3; i++){
+for (let i = 0; i < 3; i++){
   parts.push({
     title: "",
     desc: "",

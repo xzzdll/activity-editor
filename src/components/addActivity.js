@@ -78,7 +78,7 @@ export default function Index() {
       </Tabs>
       <div className="Activity-item" style={{ border: "unset" }}>
         <Button onClick={() => history.push('/dashboard')}>返回</Button>
-        <Button style={{ marginLeft: '20px' }} onClick={upload}>上传并下载json</Button>
+        <Button type="primary" style={{ marginLeft: '20px' }} onClick={upload}>上传并下载json</Button>
       </div>
     </>
   );
