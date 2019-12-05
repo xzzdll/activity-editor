@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import index from "./components/index";
+import index from "./pages/index";
 import "react-quill/dist/quill.snow.css";
 import { Route } from "react-router-dom";
 

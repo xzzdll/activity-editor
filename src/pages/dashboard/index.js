@@ -1,8 +1,8 @@
 import React from "react";
-import "./Activity.css";
+// import "./Activity.css";
 import { Table,Button } from 'antd';
-import useAllActivity from '../hooks/useAllActivity'
-import useTableColumn from '../hooks/useTableColumn'
+import useAllActivity from '../../hooks/useAllActivity'
+import useTableColumn from '../../hooks/useTableColumn'
 import { useHistory } from "react-router-dom";
 
 

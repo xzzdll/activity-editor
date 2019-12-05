@@ -3,28 +3,15 @@ import ReactQuill from "react-quill";
 import "./Activity.css";
 import { Input, Switch } from 'antd';
 import { useDispatch, useSelector } from 'react-redux'
-import UploadImage from './UploadImage'
+import UploadImage from '../../components/UploadImage'
+import useSingleData from '../../hooks/useSingleData'
+import useArrayOperation from '../../hooks/useSingleData'
 
 
 export default function Activity({ locale }) {
-  const { chinese, english } = useSelector(state => state);
-  const [data, setData] = useState(locale === 'cn' ? chinese : english);
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch({ type: locale === 'cn' ? 'chinese:set' : 'english:set', payload: data })
-  }, [data, dispatch, locale])
-
-  let setArray = (arr, index, val, key) => {
-    arr[index][key] = val
-    return { parts: arr }
-  }
-
-  let setArray1 = (arr, index, index1, val) => {
-    arr[index]['rewards'][index1]['desc'] = val
-    return { parts: arr }
-  }
-  debugger
+  const { data, setData } = useSingleData(locale)
+  const { setArray, setArray1 } = useArrayOperation()
 
   return (
     <>

@@ -3,10 +3,10 @@ import "./Activity.css";
 import Activity from "./Activity"
 import CommonTab from "./CommonTab"
 import { Tabs, Button, message } from 'antd';
-import { addNewActivity, getActivityById } from '../service/api'
+import { addNewActivity, getActivityById } from '../../service/api'
 import { useHistory, useLocation } from "react-router-dom";
-import useActivityById from "../hooks/useActivityById"
-import useDownload from "../hooks/useDownload"
+import useActivityById from "../../hooks/useActivityById"
+import useDownload from "../../hooks/useDownload"
 
 const { TabPane } = Tabs;
 
