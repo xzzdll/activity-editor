@@ -5,7 +5,7 @@ import { Input, Switch } from 'antd';
 import { useDispatch, useSelector } from 'react-redux'
 import UploadImage from '../../components/UploadImage'
 import useSingleData from '../../hooks/useSingleData'
-import useArrayOperation from '../../hooks/useSingleData'
+import useArrayOperation from '../../hooks/useArrayOperation'
 
 
 export default function Activity({ locale }) {
