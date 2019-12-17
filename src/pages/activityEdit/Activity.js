@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactQuill from "react-quill";
 import "./Activity.css";
 import { Input, Switch } from 'antd';
-import { useDispatch, useSelector } from 'react-redux'
 import UploadImage from '../../components/UploadImage'
 import useSingleData from '../../hooks/useSingleData'
 import useArrayOperation from '../../hooks/useArrayOperation'
 
 
 export default function Activity({ locale }) {
-  const dispatch = useDispatch()
   const { data, setData } = useSingleData(locale)
   const { setArray, setArray1 } = useArrayOperation()
 

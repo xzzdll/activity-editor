@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react"
-import { getAllActivity, deleteActivityById } from '../service/api'
-import { addNewActivity, getActivityById } from '../service/api'
+import { useEffect } from "react"
+import { getActivityById } from '../service/api'
 import { useSelector, useDispatch } from 'react-redux'
-import { message } from 'antd';
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default () => {
   const { common, chinese, english } = useSelector(state => state);

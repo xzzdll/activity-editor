@@ -1,6 +1,6 @@
-import { addNewActivity, getActivityById } from '../service/api'
-import { useHistory, useLocation } from "react-router-dom";
-import { Tabs, Button, message } from 'antd';
+import { addNewActivity } from '../service/api'
+import { useHistory } from "react-router-dom";
+import { message } from 'antd';
 
 export default ({ common, chinese, english }) => {
   const history = useHistory()
