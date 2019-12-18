@@ -8,10 +8,12 @@ export default () => {
   const getData = async () => {
     const { data } = await getAllActivity()
 
-    setDataSource(data.activity.map((x, index) => {
+    let tmpData = data.activity.map((x, index) => {
       x.key = index
       return x;
-    }) || [])
+    }) || []
+
+    setDataSource(tmpData)
   }
 
   useEffect(() => {
