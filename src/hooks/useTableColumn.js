@@ -20,7 +20,7 @@ export default (deleteActivity) => {
       dataIndex: 'activity_json',
       key: '币种',
       render: (activity_json) => (
-        <span>{JSON.parse(activity_json).name}</span>
+        <span>{activity_json.name}</span>
       )
     },
     {
@@ -28,7 +28,7 @@ export default (deleteActivity) => {
       dataIndex: 'activity_json',
       key: '交易对',
       render: (activity_json) => (
-        <span>{JSON.parse(activity_json).symbol}</span>
+        <span>{activity_json.symbol}</span>
       )
     },
     {

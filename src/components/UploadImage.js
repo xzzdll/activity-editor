@@ -23,7 +23,7 @@ export default function UploadImage({change,value}) {
     onChange(info) {
       const { file:{status}, fileList } = info;
       if (status === 'done') {
-        change(info.file.response.url)
+        change(info.file.name)
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
