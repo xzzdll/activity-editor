@@ -47,10 +47,8 @@ export default {
   reducer: (state = initialState, action) => {
     switch (action.type) {
       case "english:set":
-        debugger;
         return state = { ...action.payload || initialState };
       case "english:clear":
-        debugger
         return initialState;
       default:
         return state;

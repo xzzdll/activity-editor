@@ -4,14 +4,14 @@ import qs from 'qs';
 // axios 配置
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-// axios.defaults.baseURL = 'http://127.0.0.1:3000/';
-axios.defaults.baseURL = "http://47.98.115.136:8899";
+axios.defaults.baseURL = 'http://127.0.0.1:8899/';
+// axios.defaults.baseURL = "http://47.98.115.136:8899";
 axios.defaults.withCredentials = true;
 
 // POST传参序列化，请求拦截器
 axios.interceptors.request.use((config) => {
   if (config.method === 'post') {
-    config.data = qs.stringify(config.data);
+    // config.data = qs.stringify(config.data);
   }
   return config;
 }, (error) => {

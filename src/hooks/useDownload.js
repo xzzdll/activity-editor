@@ -17,7 +17,9 @@ export default ({ common, chinese, english }) => {
   }
 
   let upload = () => {
-    addNewActivity({ id: common.id, activity_json: JSON.stringify({ ...common, cn: chinese, en: english }) }).then((data) => {
+    let activity_json = { ...common, cn: chinese, en: english }
+    console.log(activity_json)
+    addNewActivity({ id: common.id, activity_json: JSON.stringify(activity_json)}).then((data) => {
       if (data.status) {
         download()
         history.push('/dashboard')
