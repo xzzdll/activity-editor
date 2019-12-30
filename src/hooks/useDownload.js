@@ -18,8 +18,7 @@ export default ({ common, chinese, english }) => {
 
   let upload = () => {
     let activity_json = { ...common, cn: chinese, en: english }
-    console.log(activity_json)
-    addNewActivity({ id: common.id, activity_json: JSON.stringify(activity_json)}).then((data) => {
+    addNewActivity({ id: common.id, activity_json: JSON.stringify(activity_json).replace(/\\/g, "\\\\")}).then((data) => {
       if (data.status) {
         download()
         history.push('/dashboard')
